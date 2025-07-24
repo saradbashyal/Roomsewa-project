@@ -1,12 +1,49 @@
-# React + Vite
+# RoomSewa Admin Panel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Admin dashboard for managing the RoomSewa platform - users, rooms, bookings, and analytics.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Dashboard**: Overview of platform statistics and activities
+- **User Management**: View and manage user accounts and roles
+- **Room Management**: Monitor and manage room listings
+- **Booking Management**: Track and manage room bookings
+- **Reviews**: Monitor user reviews and ratings
+- **Analytics**: Platform usage and performance metrics
+- **Security**: User security management tools
+- **Settings**: Platform configuration options
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React 19 with Vite
+- Tailwind CSS for styling
+- FontAwesome icons
+- React Router for navigation
+- Axios for API calls
+- React Toastify for notifications
+
+## Getting Started
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Start development server:
+```bash
+npm run dev
+```
+
+3. Build for production:
+```bash
+npm run build
+```
+
+## Default Admin Credentials
+
+- Email: admin@roomsewa.com
+- Password: admin123
+
+## API Integration
+
+The admin panel connects to the backend API at `http://localhost:3000` for all data operations.
