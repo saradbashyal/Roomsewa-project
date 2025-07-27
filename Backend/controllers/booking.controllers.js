@@ -227,18 +227,18 @@ export const verifyEsewaPayment = asyncHandler(async (req, res) => {
     const userId = req.user._id;
 
     if (!transaction_uuid) {
-      console.log('❌ No transaction_uuid provided');
+      console.log('No transaction_uuid provided');
       throw new ApiError(400, "Transaction UUID is required");
     }
 
-    console.log('🔍 Looking for booking with reference:', transaction_uuid);
+    console.log('Looking for booking with reference:', transaction_uuid);
     const booking = await Booking.findOne({
       bookingReference: transaction_uuid,
     })
       .populate("room")
       .populate("user");
       
-    console.log('📋 Found booking:', booking ? {
+    console.log('Found booking:', booking ? {
       id: booking._id,
       user: booking.user._id,
       status: booking.status,
@@ -247,12 +247,12 @@ export const verifyEsewaPayment = asyncHandler(async (req, res) => {
     } : 'NOT FOUND');
     
     if (!booking) {
-      console.log('❌ Booking not found');
+      console.log('Booking not found');
       throw new ApiError(404, "Booking not found");
     }
     
     if (booking.user._id.toString() !== userId.toString()) {
-      console.log('❌ User mismatch:', { 
+      console.log('User mismatch:', { 
         bookingUser: booking.user._id.toString(), 
         requestUser: userId.toString() 
       });
@@ -260,7 +260,7 @@ export const verifyEsewaPayment = asyncHandler(async (req, res) => {
     }
 
     if (booking.status === "Confirmed") {
-      console.log('✅ Booking already confirmed');
+      console.log('Booking already confirmed');
       return res
         .status(200)
         .json(new ApiResponse(200, booking, "Booking already confirmed"));
@@ -268,7 +268,7 @@ export const verifyEsewaPayment = asyncHandler(async (req, res) => {
 
     // If we have eSewa data, verify the signature first
     if (esewa_data) {
-      console.log('🔒 Verifying eSewa signature...');
+      console.log('Verifying eSewa signature...');
       
       // Verify signature if present
       if (esewa_data.signature && esewa_data.signed_field_names) {
@@ -287,7 +287,7 @@ export const verifyEsewaPayment = asyncHandler(async (req, res) => {
           product_code: esewa_data.product_code
         });
         
-        console.log('� Signature verification:', {
+        console.log('Signature verification:', {
           received: esewa_data.signature,
           expected: expectedSignature,
           match: esewa_data.signature === expectedSignature
@@ -296,7 +296,7 @@ export const verifyEsewaPayment = asyncHandler(async (req, res) => {
       
       // Check if payment is already complete according to eSewa
       if (esewa_data.status === 'COMPLETE') {
-        console.log('✅ eSewa reports payment as COMPLETE');
+        console.log('eSewa reports payment as COMPLETE');
         
         // Update booking status
         booking.status = "Confirmed";
@@ -304,7 +304,7 @@ export const verifyEsewaPayment = asyncHandler(async (req, res) => {
         booking.paymentId = esewa_data.transaction_code || ref_id || transaction_uuid;
         await booking.save();
 
-        console.log('✅ Booking updated successfully');
+        console.log('Booking updated successfully');
         
         return res.status(200).json(
           new ApiResponse(200, booking, "Payment verified and booking confirmed")
@@ -312,13 +312,13 @@ export const verifyEsewaPayment = asyncHandler(async (req, res) => {
       }
     }
 
-    console.log('�🔍 Checking eSewa transaction status via API...');
+    console.log('Checking eSewa transaction status via API...');
     const statusCheckResult = await checkEsewaTransactionStatus(
       transaction_uuid,
       booking.totalPrice
     );
     
-    console.log('💳 eSewa status result:', statusCheckResult);
+    console.log('eSewa status result:', statusCheckResult);
     if (statusCheckResult.status !== "COMPLETE") {
       await Booking.updateOne(
         { _id: booking._id },
@@ -606,7 +606,7 @@ export const getBookings = asyncHandler(async (req, res) => {
   const { userId } = req.params;
   
   if (req.user._id.toString() !== userId && req.user.role !== "admin") {
-    console.log('❌ Authorization failed:', {
+    console.log('Authorization failed:', {
       requestUserId: req.user._id.toString(),
       paramUserId: userId,
       userRole: req.user.role
@@ -614,7 +614,7 @@ export const getBookings = asyncHandler(async (req, res) => {
     throw new ApiError(403, "Not authorized to view these bookings");
   }
 
-  console.log('🔍 Searching for bookings with user ID:', userId);
+  console.log('Searching for bookings with user ID:', userId);
   
   const bookings = await Booking.find({ user: userId })
     .populate({
@@ -627,8 +627,8 @@ export const getBookings = asyncHandler(async (req, res) => {
     })
     .sort({ createdAt: -1 });
 
-  console.log('📋 Found bookings:', bookings.length);
-  console.log('📋 Bookings data:', bookings.map(b => ({
+  console.log('Found bookings:', bookings.length);
+  console.log('Bookings data:', bookings.map(b => ({
     id: b._id,
     user: b.user,
     room: b.room?.title,

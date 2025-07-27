@@ -1,6 +1,6 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import { Room } from "../models/Room.model.js";
-import { User } from "../models/User.model.js"; // Assuming User model exists
+import { User } from "../models/User.model.js"; 
 import { ApiResponse } from "../utils/ApiResponse.js";
 import mongoose from "mongoose";
 

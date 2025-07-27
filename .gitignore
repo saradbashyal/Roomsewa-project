@@ -33,7 +33,7 @@ frontend/dist/
 frontend/.env
 frontend/.env.*
 
-# Vite cache (if you're using Vite)
+# Vite cache 
 frontend/.vite/
 
 # ========== General ==========
@@ -56,7 +56,3 @@ coverage/
 # Optional cache
 .cache/
 
-# ========== Optional ==========
-# If using Next.js (ignore if not)
-.next/
-out/

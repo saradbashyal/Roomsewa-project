@@ -87,8 +87,8 @@ export const login = asyncHandler(async (req, res) => {
 
         sendTokenResponse(user, 200, res);
     } catch (err) {
-        console.error('🔴 Login Error:', err.stack);
-        res.status(500).json({ success: false, message: 'Server Error' });
+        console.error('Login Error:', err.stack);
+        res.status(500).json({ success: false, message: err.message });
     }
 })
 
@@ -253,20 +253,20 @@ export const updatePassword = asyncHandler(async (req, res, next) => {
 
 //  POST /api/auth/forgotpassword PUBLIC
 export const forgotPassword = asyncHandler(async (req, res, next) => {
-    console.log('🔵 Forgot password request received for email:', req.body.email);
+    console.log('Forgot password request received for email:', req.body.email);
     
     const user = await User.findOne({ email: req.body.email })
 
     if (!user) {
-        console.log('🔴 User not found for email:', req.body.email);
+        console.log('User not found for email:', req.body.email);
         return res.status(200).json(new ApiResponse(200, {}, 'If a user with that email exists, an OTP has been sent.'));
     }
 
-    console.log('✅ User found:', user.email);
+    console.log('User found:', user.email);
 
     // Generate 6-digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    console.log('🔢 Generated OTP:', otp);
+    console.log('Generated OTP:', otp);
 
     // Hash and store OTP
     user.resetPasswordToken = crypto
@@ -277,20 +277,20 @@ export const forgotPassword = asyncHandler(async (req, res, next) => {
     user.resetPasswordExpire = Date.now() + 10 * 60 * 1000; // 10 minutes
 
     await user.save({ validateBeforeSave: false });
-    console.log('💾 OTP saved to database');
+    console.log('OTP saved to database');
 
     try {
-        console.log('📧 Attempting to send email to:', user.email);
+        console.log('Attempting to send email to:', user.email);
         await sendPasswordResetOTP({
             email: user.email,
             username: user.username,
             otp: otp,
         })
-        console.log('✅ Email sent successfully');
+        console.log('Email sent successfully');
 
         res.status(200).json(new ApiResponse(200, {}, 'OTP sent to your email successfully.'));
     } catch (error) {
-        console.error('🔴 Email sending failed:', error);
+        console.error('Email sending failed:', error);
         user.resetPasswordToken = undefined;
         user.resetPasswordExpire = undefined;
         await user.save({ validateBeforeSave: false });
