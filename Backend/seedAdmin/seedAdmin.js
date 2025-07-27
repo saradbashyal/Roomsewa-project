@@ -1,21 +1,25 @@
-
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { User } from '../models/User.model.js';
 
 dotenv.config();
 
-const MONGODB_URL = process.env.MONGODB_URL || 'mongodb+srv://saradwindows:XFk4r7Zy7zOez0Jj@cluster0.9yhatzr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+// Environment variables are required - no fallbacks with sensitive data
+const MONGODB_URI = process.env.MONGODB_URI;
+if (!MONGODB_URI) {
+  console.error('MONGODB_URI environment variable is required');
+  process.exit(1);
+}
 
 const adminData = {
   firstName: process.env.ADMIN_FIRSTNAME || 'Admin',
   lastName: process.env.ADMIN_LASTNAME || 'User',
   username: process.env.ADMIN_USERNAME || 'admin',
-  email: process.env.ADMIN_EMAIL || 'admin@roomsewa.com',
-  password: process.env.ADMIN_PASSWORD || 'Sarad@1',
+  email: process.env.ADMIN_EMAIL || 'admin@example.com',
+  password: process.env.ADMIN_PASSWORD || 'ChangeMe123!',
   role: 'admin',
-  phone: process.env.ADMIN_PHONE || '9800000000',
-  address: process.env.ADMIN_ADDRESS || 'Kathmandu',
+  phone: process.env.ADMIN_PHONE || '1234567890',
+  address: process.env.ADMIN_ADDRESS || 'City, Country',
   avatar: {
     url: '/uploads/default-avatar.png',
     public_id: null
@@ -24,7 +28,7 @@ const adminData = {
 
 async function seedAdmin() {
   try {
-    await mongoose.connect(MONGODB_URL, { retryWrites: true, w: 'majority' });
+    await mongoose.connect(MONGODB_URI, { retryWrites: true, w: 'majority' });
     console.log('Connected to MongoDB');
 
     const existing = await User.findOne({ email: adminData.email });
