@@ -5,12 +5,14 @@ import { User } from '../models/User.model.js';
 
 export const sendWelcomeEmail = asyncHandler(async (options) => {
     try {
+        // display user ko nam
+        const displayName = options.userName || `${options.firstName || ''} ${options.lastName || ''}`.trim() || 'User';
         const mailOptions = {
             from: `"RoomSewa" <${process.env.EMAIL_USER}>`,
             to: options.email,
             subject: 'Welcome to RoomSewa!',
             html: `
-                <h2>Welcome, ${options.userName || 'User'}!</h2>
+                <h2>Welcome, ${displayName}!</h2>
                 <p>Thank you for registering with RoomSewa. We are excited to have you on board.</p>
                 <p>Start exploring and find your perfect room today!</p>
                 <p>Best regards,<br/>The RoomSewa Team</p>
