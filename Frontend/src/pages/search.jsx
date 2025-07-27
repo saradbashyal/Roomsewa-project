@@ -255,7 +255,7 @@ const SearchPage = () => {
       try {
         setLoading(true);
         setError(null);
-        const res = await fetch('http://localhost:3000/api/rooms/');
+        const res = await fetch('roomsewa-project-production.up.railway.app/api/rooms/');
         if (!res.ok) throw new Error('Failed to fetch rooms');
         const response = await res.json();
         

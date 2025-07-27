@@ -1,5 +1,5 @@
 // API utility for admin panel
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'roomsewa-project-production.up.railway.app/api';
 
 export const api = {
   // Admin login

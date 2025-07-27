@@ -105,7 +105,7 @@ const MyBookings = () => {
       console.log('Token:', token ? 'Present' : 'Missing');
       console.log('Is refresh:', isRefresh);
       
-      const url = `http://localhost:3000/api/bookings/user/${user._id || user.id}`;
+      const url = `roomsewa-project-production.up.railway.app/api/bookings/user/${user._id || user.id}`;
       console.log('API URL:', url);
       
       const response = await fetch(url, {
@@ -198,7 +198,7 @@ const MyBookings = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:3000/api/bookings/${bookingId}/cancel`, {
+      const response = await fetch(`roomsewa-project-production.up.railway.app/api/bookings/${bookingId}/cancel`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

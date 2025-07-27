@@ -183,7 +183,7 @@ const AddProperty = () => {
       if (formData.contactPhone) roomData.contactPhone = formData.contactPhone;
       if (formData.contactEmail) roomData.contactEmail = formData.contactEmail;
 
-      const response = await fetch('http://localhost:3000/api/rooms/', {
+      const response = await fetch('roomsewa-project-production.up.railway.app/api/rooms/', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

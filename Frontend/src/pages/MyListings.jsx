@@ -99,7 +99,7 @@ const MyListings = () => {
         setError(null);
         
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:3000/api/rooms/landlord/${user._id || user.id}`, {
+        const response = await fetch(`roomsewa-project-production.up.railway.app/api/rooms/landlord/${user._id || user.id}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -153,7 +153,7 @@ const MyListings = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:3000/api/rooms/${listingId}`, {
+      const response = await fetch(`roomsewa-project-production.up.railway.app/api/rooms/${listingId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,

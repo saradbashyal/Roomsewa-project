@@ -57,7 +57,7 @@ const signUp = () => {
 
     // Send signup request to backend
     try {
-      const res = await fetch("http://localhost:3000/api/users/register", {
+      const res = await fetch("roomsewa-project-production.up.railway.app/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

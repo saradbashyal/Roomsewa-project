@@ -73,7 +73,7 @@ const EditProperty = () => {
       try {
         setLoading(true);
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:3000/api/rooms/${id}`, {
+        const response = await fetch(`roomsewa-project-production.up.railway.app/api/rooms/${id}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -237,7 +237,7 @@ const EditProperty = () => {
       if (formData.contactPhone) roomData.contactPhone = formData.contactPhone;
       if (formData.contactEmail) roomData.contactEmail = formData.contactEmail;
 
-      const response = await fetch(`http://localhost:3000/api/rooms/${id}`, {
+      const response = await fetch(`roomsewa-project-production.up.railway.app/api/rooms/${id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

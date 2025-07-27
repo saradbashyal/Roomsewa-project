@@ -47,7 +47,7 @@ const PaymentSuccess = () => {
         const token = localStorage.getItem('token');
         console.log('Calling verify-esewa with:', { transactionUuid, refId });
         
-        const response = await fetch('http://localhost:3000/api/bookings/verify-esewa', {
+        const response = await fetch('roomsewa-project-production.up.railway.app/api/bookings/verify-esewa', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

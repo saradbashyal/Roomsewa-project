@@ -29,7 +29,7 @@ const ForgotPassword = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3000/api/users/forgotpassword', {
+      const response = await fetch('roomsewa-project-production.up.railway.app/api/users/forgotpassword', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
