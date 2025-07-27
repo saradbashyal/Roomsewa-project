@@ -12,10 +12,12 @@ export const sendWelcomeEmail = asyncHandler(async (options) => {
             to: options.email,
             subject: 'Welcome to RoomSewa!',
             html: `
-                <h2>Welcome, ${displayName}!</h2>
+            <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+                <h2 style="color: #2e86de;">Welcome, ${displayName}!</h2>
                 <p>Thank you for registering with RoomSewa. We are excited to have you on board.</p>
-                <p>Start exploring and find your perfect room today!</p>
-                <p>Best regards,<br/>The RoomSewa Team</p>
+                <p>Start exploring and find your perfect room 🛋️ today!</p>
+                <p>Best regards,<br/>RoomSewa Team</p>
+            </div>
             `,
         };
         const info = await transporter.sendMail(mailOptions);
