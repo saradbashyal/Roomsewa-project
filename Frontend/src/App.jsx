@@ -19,7 +19,7 @@ import MyListings from './pages/MyListings';
 import MyBookings from './pages/MyBookings';
 import ScrollToTop from './components/ScrollToTop';
 
-import './app.css'
+import './App.css'
 
 function App() {
   return (
