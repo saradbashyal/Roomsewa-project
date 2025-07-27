@@ -108,8 +108,10 @@ export const createBooking = asyncHandler(async (req, res) => {
       }
     }
 
-    // Validate room availability
-    if (viewingDateObj < room.availableFrom) {
+    // Validate room availability (compare only the date part)
+    const availableFromDate = new Date(room.availableFrom);
+    availableFromDate.setHours(0, 0, 0, 0);
+    if (viewingDateObj < availableFromDate) {
       throw new ApiError(400, "Room not available for the selected viewing date");
     }
 
