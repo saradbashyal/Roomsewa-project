@@ -125,7 +125,7 @@ const RoomDetails = () => {
     const fetchRoom = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`roomsewa-project-production.up.railway.app/api/rooms/${id}`);
+        const response = await fetch(`https://roomsewa-project-production.up.railway.app/api/rooms/${id}`);
         if (!response.ok) {
           throw new Error('Room not found');
         }
@@ -198,7 +198,7 @@ const RoomDetails = () => {
       const token = localStorage.getItem('token');
 
       // Use selected booking date for viewing
-      const response = await fetch('roomsewa-project-production.up.railway.app/api/bookings', {
+      const response = await fetch('https://roomsewa-project-production.up.railway.app/api/bookings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

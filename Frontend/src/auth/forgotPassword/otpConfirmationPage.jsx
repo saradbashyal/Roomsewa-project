@@ -134,7 +134,7 @@ const OtpConfirmationPage = () => {
     setLoading(true);
     
     try {
-      const response = await fetch('roomsewa-project-production.up.railway.app/api/users/verify-otp', {
+      const response = await fetch('https://roomsewa-project-production.up.railway.app/api/users/verify-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -170,7 +170,7 @@ const OtpConfirmationPage = () => {
     setResendLoading(true);
     
     try {
-      const response = await fetch('roomsewa-project-production.up.railway.app/api/users/forgotpassword', {
+      const response = await fetch('https://roomsewa-project-production.up.railway.app/api/users/forgotpassword', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
