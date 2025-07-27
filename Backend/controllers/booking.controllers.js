@@ -67,6 +67,7 @@ export const createBooking = asyncHandler(async (req, res) => {
     } = req.body;
     const userId = req.user._id;
 
+
     if (!roomId || !viewingDate || !totalPrice || !paymentMethod) {
       throw new ApiError(
         400,
@@ -97,7 +98,7 @@ export const createBooking = asyncHandler(async (req, res) => {
     // Special validation for viewing bookings - restrict to 3 days maximum
     if (bookingType === "viewing") {
       const maxBookingDate = new Date(today);
-      maxBookingDate.setDate(today.getDate() + 2); // Allow today (0), tomorrow (1), day after (2)
+      maxBookingDate.setDate(today.getDate() + 2); 
 
       if (viewingDateObj > maxBookingDate) {
         throw new ApiError(
@@ -110,6 +111,16 @@ export const createBooking = asyncHandler(async (req, res) => {
     // Validate room availability
     if (viewingDateObj < room.availableFrom) {
       throw new ApiError(400, "Room not available for the selected viewing date");
+    }
+
+    // Prevent double booking for the same room and date (any status except Cancelled/Failed)
+    const existingBooking = await Booking.findOne({
+      room: roomId,
+      viewingDate: viewingDateObj,
+      status: { $nin: ["Cancelled", "Failed"] }
+    });
+    if (existingBooking) {
+      throw new ApiError(400, "This room is already booked for the selected date.");
     }
 
     let service,
